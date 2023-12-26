@@ -103,6 +103,24 @@ peft_config = PromptTuningConfig(
     tokenizer_name_or_path=model_name,
 )
 
+'''
+P1 (prompt init) - > X
+P2 (we give another) - > Y
+P1 ~ P2 ==> X = Y
+
+X != Y
+
+P-Tuning
+P1 ~ P2 ==> X = Y
+
+P1
+
+LLM -> search in the prompt discrete space
+P2' (number of tokens in the prompt P2' atleast num_virtual_tokens) -> X'
+
+LLM -> objective ( X' - X ) minimize
+'''
+
 model = AutoModelForCausalLM.from_pretrained(model_name)
 model = get_peft_model(model, peft_config)
 print(model.print_trainable_parameters())
